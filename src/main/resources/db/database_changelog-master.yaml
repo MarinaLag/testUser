@@ -1,0 +1,3 @@
+databaseChangeLog:
+  - include:
+      file: db/v1.0/changelog-v1.0-cumulative.yaml

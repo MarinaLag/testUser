@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - include:
+      file: classpath:db/v1.0/V1__01_create_tables.yml
+  - include:
+      file: classpath:db/v1.0/V1__02_insert_into_small_tables.yml
+  - include:
+      file: classpath:db/v1.0/V1__03_insert_into_big_tables.yml

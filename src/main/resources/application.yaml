@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: user-service
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        use_sql_comments: true
+        format_sql: true
+
+  liquibase:
+    change-log: db/database_changelog-master.yaml
+    enabled: true
+
+  profiles:
+    active: dev
+
+server:
+  port: 8082
+
+logging:
+  level:
+    com:
+      p6spy:
+        engine:
+          spy: DEBUG
+
+jwt:
+  secret: $2a$09$mk2pVckrnm0t80Pu4vsa6eEcy9Jm6DvGUNAJC1E/TMiO7QBoZZk/y
+  access:
+    token:
+      expiration: 300000
+  refresh:
+    token:
+      expiration: 86400000

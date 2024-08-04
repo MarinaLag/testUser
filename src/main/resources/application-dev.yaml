@@ -1,0 +1,21 @@
+spring:
+  datasource:
+    jdbcUrl: jdbc:p6spy:postgresql://localhost:5433/user_service
+    driver-class-name: com.p6spy.engine.spy.P6SpyDriver
+
+    username: admin
+    password: admin
+
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        type: trace
+
+logging:
+  level:
+    com:
+      p6spy:
+        engine:
+          spy: DEBUG

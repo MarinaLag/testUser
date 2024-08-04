@@ -1,0 +1,70 @@
+databaseChangeLog:
+  - changeSet:
+      id: insertPersonalData
+      author: Mikhail S.
+      changes:
+        - insert:
+            tableName: PERSONAL_DATA
+            columns:
+              - column:
+                  name: ID
+                  value: 1
+              - column:
+                  name: PASSPORT_NUMBER
+                  value: '123456'
+              - column:
+                  name: PASSPORT_SERIES
+                  value: 'HB'
+              - column:
+                  name: DATE_ISSUED
+                  value: '2001-02-28'
+              - column:
+                  name: CITIZENSHIP_ID
+                  value: 2
+              - column:
+                  name: PHONE_NUMBER
+                  value: '+79211234567'
+              - column:
+                  name: ADDRESS
+                  value: 'Лахденпохья, ул. Советская д.43'
+              - column:
+                  name: ISSUED_BY
+                  value: 'Центральный РОВД Лахденпохьи'
+
+  - changeSet:
+      id: insertEmployee
+      author: Mikhail S.
+      changes:
+        - insert:
+            tableName: EMPLOYEE
+            columns:
+              - column:
+                  name: EMPLOYEE_ID
+                  value: '450e8400-e29b-41d4-a716-446655440000'
+              - column:
+                  name: PERSONAL_DATA_ID
+                  value: 1
+              - column:
+                  name: POSITION_ID
+                  value: 1
+              - column:
+                  name: FIRST_NAME
+                  value: 'Василий'
+              - column:
+                  name: LAST_NAME
+                  value: 'Пупкин'
+              - column:
+                  name: MIDDLE_NAME
+                  value: 'Петрович'
+              - column:
+                  name: BIRTHDAY_DATE
+                  value: '1990-05-21'
+              - column:
+                  name: OFFICE_ID
+                  value: 1
+              - column:
+                  name: WORK_NUMBER
+                  value: '+78123215476'
+              - column:
+                  name: START_DATE
+                  value: '02-05-2024'

@@ -1,0 +1,202 @@
+databaseChangeLog:
+  - changeSet:
+      id: create_citizenship_table
+      author: Mikhail S.
+      changes:
+        - createTable:
+            tableName: CITIZENSHIP
+            columns:
+              - column:
+                  name: ID
+                  type: integer
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: NAME
+                  type: varchar(30)
+                  constraints:
+                    checkConstraint: "NAME ~ '^[А-ЯЁа-яё]+$'"
+
+  - changeSet:
+      id: create_position_table
+      author: Mikhail S.
+      changes:
+        - createTable:
+            tableName: POSITION
+            columns:
+              - column:
+                  name: ID
+                  type: integer
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: NAME_POSITION
+                  type: varchar(50)
+                  constraints:
+                    checkConstraint: "NAME_POSITION ~ '^[А-ЯЁа-яё\\-]+$'"
+
+  - changeSet:
+      id: create_office_table
+      author: Mikhail S.
+      changes:
+        - createTable:
+            tableName: OFFICE
+            columns:
+              - column:
+                  name: ID
+                  type: integer
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: CITY
+                  type: varchar(255)
+                  constraints:
+                    checkConstraint: "CITY ~ '^[А-ЯЁа-яё\\-,\\./]+$'"
+              - column:
+                  name: ADDRESS
+                  type: varchar(255)
+                  constraints:
+                    checkConstraint: "ADDRESS ~ '^[А-ЯЁа-яё\\-,\\./]+$'"
+
+  - changeSet:
+      id: create_personal_data_table
+      author: Mikhail S.
+      changes:
+        - createTable:
+            tableName: PERSONAL_DATA
+            columns:
+              - column:
+                  name: ID
+                  type: serial
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: PASSPORT_NUMBER
+                  type: varchar(14)
+                  constraints:
+                    checkConstraint: "PASSPORT_NUMBER ~ '^[0-9]+$'"
+              - column:
+                  name: PASSPORT_SERIES
+                  type: varchar(2)
+                  constraints:
+                    checkConstraint: "PASSPORT_SERIES ~ '^[A-Z]{2}$'"
+              - column:
+                  name: DATE_ISSUED
+                  type: date
+              - column:
+                  name: CITIZENSHIP_ID
+                  type: integer
+                  constraints:
+                    nullable: false
+              - column:
+                  name: PHONE_NUMBER
+                  type: varchar(20)
+                  constraints:
+                    checkConstraint: "PHONE_NUMBER ~ '^\\+[0-9]{11}$'"
+              - column:
+                  name: ADDRESS
+                  type: varchar(255)
+                  constraints:
+                    checkConstraint: "ADDRESS ~ '^[А-ЯЁа-яё\\-,\\./]+$'"
+              - column:
+                  name: ISSUED_BY
+                  type: varchar(255)
+                  constraints:
+                    checkConstraint: "ISSUED_BY ~ '^[А-ЯЁа-яё]+$'"
+
+  - changeSet:
+      id: create_employee_table
+      author: Mikhail S.
+      changes:
+        - sql:
+            dbms: postgresql
+            endDelimiter: ;
+            sql: CREATE EXTENSION IF NOT EXISTS "pgcrypto";
+        - createTable:
+            tableName: EMPLOYEE
+            columns:
+              - column:
+                  name: EMPLOYEE_ID
+                  type: UUID
+                  defaultValue: gen_random_uuid()
+                  computed: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: PERSONAL_DATA_ID
+                  type: integer
+                  constraints:
+                    nullable: false
+              - column:
+                  name: POSITION_ID
+                  type: integer
+                  constraints:
+                    nullable: false
+              - column:
+                  name: FIRST_NAME
+                  type: varchar(30)
+                  constraints:
+                    checkConstraint: "FIRST_NAME ~ '^[А-ЯЁа-яё]+-?[А-ЯЁа-яё]+$'"
+              - column:
+                  name: LAST_NAME
+                  type: varchar(30)
+                  constraints:
+                    checkConstraint: "LAST_NAME ~ '^[А-ЯЁа-яё]+-?[А-ЯЁа-яё]+$'"
+              - column:
+                  name: MIDDLE_NAME
+                  type: varchar(30)
+                  constraints:
+                    checkConstraint: "MIDDLE_NAME ~ '^[А-ЯЁа-яё]+-?[А-ЯЁа-яё]+$'"
+              - column:
+                  name: BIRTHDAY_DATE
+                  type: date
+              - column:
+                  name: OFFICE_ID
+                  type: integer
+                  constraints:
+                    nullable: false
+              - column:
+                  name: WORK_NUMBER
+                  type: varchar(20)
+                  constraints:
+                    checkConstraint: "WORK_NUMBER ~ '^\\+[0-9]{11}$'"
+              - column:
+                  name: START_DATE
+                  type: date
+              - column:
+                  name: END_DATE
+                  type: date
+
+  - changeSet:
+      id: create_personal_data_fk
+      author: Mikhail S.
+      changes:
+        - addForeignKeyConstraint:
+            constraintName: FK_PERSONAL_DATA_CITIZENSHIP
+            baseTableName: PERSONAL_DATA
+            baseColumnNames: CITIZENSHIP_ID
+            referencedTableName: CITIZENSHIP
+            referencedColumnNames: ID
+
+  - changeSet:
+      id: create_employee_fk
+      author: Mikhail S.
+      changes:
+        - addForeignKeyConstraint:
+            constraintName: FK_EMPLOYEE_PERSONAL_DATA
+            baseTableName: EMPLOYEE
+            baseColumnNames: PERSONAL_DATA_ID
+            referencedTableName: PERSONAL_DATA
+            referencedColumnNames: ID
+        - addForeignKeyConstraint:
+            constraintName: FK_EMPLOYEE_POSITION
+            baseTableName: EMPLOYEE
+            baseColumnNames: POSITION_ID
+            referencedTableName: POSITION
+            referencedColumnNames: ID
+        - addForeignKeyConstraint:
+            constraintName: FK_EMPLOYEE_OFFICE
+            baseTableName: EMPLOYEE
+            baseColumnNames: OFFICE_ID
+            referencedTableName: OFFICE
+            referencedColumnNames: ID

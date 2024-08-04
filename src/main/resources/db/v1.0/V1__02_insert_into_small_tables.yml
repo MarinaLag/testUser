@@ -1,0 +1,105 @@
+databaseChangeLog:
+  - changeSet:
+      id: insertCitizenship
+      author: Mikhail S.
+      changes:
+        - insert:
+            tableName: CITIZENSHIP
+            columns:
+              - column:
+                  name: ID
+                  value: 1
+              - column:
+                  name: NAME
+                  value: 'Республика Беларусь'
+        - insert:
+            tableName: CITIZENSHIP
+            columns:
+              - column:
+                  name: ID
+                  value: 2
+              - column:
+                  name: NAME
+                  value: 'Российская Федерация'
+        - insert:
+            tableName: CITIZENSHIP
+            columns:
+              - column:
+                  name: ID
+                  value: 3
+              - column:
+                  name: NAME
+                  value: 'Республика Казахстан'
+
+  - changeSet:
+      id: insertPosition
+      author: Mikhail S.
+      changes:
+        - insert:
+            tableName: POSITION
+            columns:
+              - column:
+                  name: ID
+                  value: 1
+              - column:
+                  name: NAME_POSITION
+                  value: 'Бухгалтер'
+        - insert:
+            tableName: POSITION
+            columns:
+              - column:
+                  name: ID
+                  value: 2
+              - column:
+                  name: NAME_POSITION
+                  value: 'Инженер'
+        - insert:
+            tableName: POSITION
+            columns:
+              - column:
+                  name: ID
+                  value: 3
+              - column:
+                  name: NAME_POSITION
+                  value: 'Операционист'
+
+  - changeSet:
+      id: insertOffice
+      author: Mikhail S.
+      changes:
+        - insert:
+            tableName: OFFICE
+            columns:
+              - column:
+                  name: ID
+                  value: 1
+              - column:
+                  name: CITY
+                  value: 'Гомель'
+              - column:
+                  name: ADDRESS
+                  value: 'пр-т Ленина д.34'
+        - insert:
+            tableName: OFFICE
+            columns:
+              - column:
+                  name: ID
+                  value: 2
+              - column:
+                  name: CITY
+                  value: 'Минск'
+              - column:
+                  name: ADDRESS
+                  value: 'пр-т Независимости д.11'
+        - insert:
+            tableName: OFFICE
+            columns:
+              - column:
+                  name: ID
+                  value: 3
+              - column:
+                  name: CITY
+                  value: 'Москва'
+              - column:
+                  name: ADDRESS
+                  value: 'ул. Книжная д.106'
